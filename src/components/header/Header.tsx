@@ -12,6 +12,7 @@ const Header = () => {
           <h2 className="text-5xl uppercase font-bold">
             makeup
           </h2>
+          
           <span className="font-thin">beauty without limits</span>
         </div>
         <div className='flex gap-2'>
