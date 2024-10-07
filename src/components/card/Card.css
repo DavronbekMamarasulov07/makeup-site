@@ -1,0 +1,18 @@
+.card:hover .heart-icon {
+  opacity: 1;
+}
+.heart-icon {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card-btn{
+  transform: translateY(-100px);
+  transition: .3s;
+}
+
+.card:hover .card-btn {
+  transform: translateY(0px);
+}
+
+

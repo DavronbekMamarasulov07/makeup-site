@@ -14,8 +14,6 @@ a{
   text-decoration: none;
 }
 
-
-
 ul{
   list-style: none;
 }
@@ -26,3 +24,12 @@ ul{
   padding: 0 20px;
 }
 
+
+
+.ant-select-selector{
+  border: 1px solid #d9d9d9 !important;
+}
+
+.ant-select-selector:hover{
+  box-shadow: 0px 0px 5px 2px #222 !important;
+}
