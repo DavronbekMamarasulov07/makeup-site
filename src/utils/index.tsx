@@ -3,8 +3,8 @@ import { Suspense } from "react";
 
 export const Loading = () => {
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-[#ddd5b0] ">
-      <Spin className="custom-spin" tip="Loading..." size="large" />
+    <div className="h-screen w-full flex items-center justify-center ">
+      <Spin  className="custom-spin !text-black" tip="Loading..." size="large" />
     </div>
   );
 };

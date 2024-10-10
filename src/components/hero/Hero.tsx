@@ -27,12 +27,12 @@ const Hero = () => {
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
     >
-      <SwiperSlide><img className='h-[600px] object-cover  w-full' src={hero1} alt="hero" /></SwiperSlide>
-      <SwiperSlide><img className='h-[600px] object-cover  w-full' src={hero2} alt="hero" /></SwiperSlide>
-      <SwiperSlide><img className='h-[600px] object-cover  w-full' src={hero3} alt="hero" /></SwiperSlide>
-      <SwiperSlide><img className='h-[600px] object-cover  w-full' src={hero4} alt="hero" /></SwiperSlide>
-      <SwiperSlide><img className='h-[600px] object-cover  w-full' src={hero5} alt="hero" /></SwiperSlide>
-    </Swiper>
+      <SwiperSlide><img className='h-[700px] object-cover  w-full' src={hero1} alt="hero" /></SwiperSlide>
+      <SwiperSlide><img className='h-[700px] object-cover  w-full' src={hero2} alt="hero" /></SwiperSlide>
+      <SwiperSlide><img className='h-[700px] object-cover  w-full' src={hero3} alt="hero" /></SwiperSlide>
+      <SwiperSlide><img className='h-[700px] object-cover  w-full' src={hero4} alt="hero" /></SwiperSlide>
+      <SwiperSlide><img className='h-[700px] object-cover  w-full' src={hero5} alt="hero" /></SwiperSlide>
+      </Swiper>
     </div>
   );
 };

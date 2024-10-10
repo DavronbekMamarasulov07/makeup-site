@@ -1,39 +1,25 @@
-// import { useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "../container/Container";
-// import { useGetAllCategoriesQuery } from "../../redux/api/categoriesApi";
+import "./Categories.css"
 
 const Categories = () => {
-  // const [categories, setCategories] = useState<string>("");
 
-  // const { data } = useGetAllCategoriesQuery(categories, { skip: !categories });
-  // console.log(data);
-
-  // const handleTag = (tag: string) => {
-  //   setCategories(tag);
-  // };
-
-  // const handleRemoveTag = () => {
-  //   setCategories("");
-  // };
-
-  // console.log(categories); 
 
   return (
-    <>
+    <div className="pt-10 pb-3">
       <Container>
         <ul className="flex gap-4 justify-between capitalize text-xl py-3">
           {["blush", "bronzer", "eyebrow", "eyeliner", "eyeshadow", "foundation", "lip liner", "lipstick", "mascara", "nail polish"].map((category) => (
             <li
               key={category}
-              // onMouseLeave={handleRemoveTag}
-              // onMouseEnter={() => handleTag(category.replace(/ /g, "_"))}
+              className="hover:text-black transition-transform cursor-pointer category"
             >
-              {category}
+              <Link to={`/category/${category}`}>{category}</Link>
             </li>
           ))}
         </ul>
       </Container>
-    </>
+    </div>
   );
 };
 

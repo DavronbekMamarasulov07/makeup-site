@@ -13,7 +13,7 @@ const LikedProducts = ({ likedProducts }: { likedProducts : IProduct[]}) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
                   {
                     likedProducts.map((product) => (
-                      <Card key={product.id} product={product} />
+                      <Card cardType="liked" key={product.id} product={product} />
                     ))
                   }
                 </div>

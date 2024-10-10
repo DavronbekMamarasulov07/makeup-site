@@ -44,7 +44,7 @@ const Header = () => {
     removeParam('modal')
   };
   return (
-    <nav >
+    <nav className='shadow-md ' >
       <div className='absolute top-2 right-5 '>
         <Select
           
@@ -62,7 +62,7 @@ const Header = () => {
           ]}
         />
       </div>
-      <div className="flex items-center justify-between max-w-[1300px] mx-auto py-10  ">
+      <div className="flex items-center justify-between max-w-[1300px] mx-auto pt-10 pb-5 ">
         <div>
           <SearchOutlined style={{ fontSize: 30, fontWeight: 'medium' }} />
         </div>

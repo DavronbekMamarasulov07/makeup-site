@@ -4,14 +4,14 @@ import {type IProduct} from "../../types"
 
 const categoriesApi = api.injectEndpoints({
     endpoints: (build) => ({
-      getAllCategories: build.query<IProduct, string>({
-
-        query: (tag) => ({
-          url: `/products.json?product_type=${tag}`,
+      getCategoryByName: build.query<IProduct[], {"product_type" : string | null}>({
+        query: (params) => ({
+          url: `/products.json`,
+          params
         }),
         providesTags: ["MAKEUP"],
-      }),
+      })
     }),
   });
   
-  export const { useGetAllCategoriesQuery } = categoriesApi
+  export const {  useGetCategoryByNameQuery } = categoriesApi

@@ -1,0 +1,19 @@
+.category{
+  position: relative;
+  transition: color 0.3s;
+}
+
+.category::after{
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(0, 0, 0);
+  transition: .3s;
+}
+
+.category:hover::after{
+  width: 100%;
+}
