@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import {  RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import {  AppDispatch, RootState } from "../../redux/store";
 import { IProduct } from "../../types";
 import CartTable from "../../components/cart-table/CartTable.tsx";
 import Container from "../../components/container/Container.tsx";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import useSearchParamsHook from "../../hooks/UseQueryParams.tsx";
 import BankCardForm from "../../components/bank-card-form/BankCardForm.tsx";
+import { clearCart } from "../../redux/slices/cartSlice.ts";
 
 const CartComponent = () => {
   const { setParam, getParam ,removeParam } = useSearchParamsHook();
@@ -15,8 +16,8 @@ const CartComponent = () => {
     (state: RootState) => state.cart
   );
   const [count, setCount] = useState<number>(4);
+  const dispatch = useDispatch<AppDispatch>();
   
-
   const total = cartProduct
     .map((product) => product.price * (product.quantity || 0))
     .reduce((a, b) => a + b, 0).toFixed(2);
@@ -54,8 +55,8 @@ const CartComponent = () => {
         <Container>
           <div className="w-full flex flex-col items-end">
             <div className="w-full">
-              <h2 className=" text-left text-3xl font-bold mb-5">
-                Product Cart
+              <h2 className=" text-left text-3xl font-bold mb-5 flex items-center  gap-5">
+              Product Cart <Button onClick={() => dispatch(clearCart())} type="primary" className="!bg-black !text-white" >Clear Cart</Button>
               </h2>
             </div>
             <table className="w-full  cart-table">

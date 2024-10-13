@@ -6,7 +6,7 @@ const Categories = () => {
 
 
   return (
-    <div className="pt-10 pb-3">
+    <div className="py-5">
       <Container>
         <ul className="flex gap-4 justify-between capitalize text-xl py-3">
           {["blush", "bronzer", "eyebrow", "eyeliner", "eyeshadow", "foundation", "lip liner", "lipstick", "mascara", "nail polish"].map((category) => (

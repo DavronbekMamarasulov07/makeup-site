@@ -12,7 +12,7 @@ import { IProduct } from "../../types"
 const Home = () => {
   const { data, isLoading } = useGetAllProductsQuery()
 
-  const filteredData = (data as unknown as IProduct[])?.filter((product: IProduct) => product.price !== 0.0 && product.description !== "" && product.product_colors.length > 0)
+  const filteredData = (data as unknown as IProduct[])?.filter((product: IProduct) => String(product.price) !== "0.0" && product.description !== "" && product.product_colors.length > 0)
 
   return (
     <div>

@@ -9,7 +9,7 @@ const categoriesApi = api.injectEndpoints({
           url: `/products.json`,
           params
         }),
-        providesTags: ["MAKEUP"],
+        providesTags: ["CATEGORY"],
       })
     }),
   });
