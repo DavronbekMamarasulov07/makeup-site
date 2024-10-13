@@ -6,30 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   incrementQuantity,
   decrementQuantity,
-  selectCartProductById,
   removeFromCart,
 } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
 
 const CartTable = ({ product }: { product: IProduct }) => {
   const dispatch = useDispatch();
-  const cartProduct = useSelector((state: RootState) =>
-    selectCartProductById(state, product.id)
-  );
+  const {lang} = useSelector((state: RootState) => state.lang)
 
-  const quantity = cartProduct?.quantity || 0;
-
-  const handleIncrement = () => {
-
-    dispatch(incrementQuantity(product.id));
-  };
-
-
-
+  const quantity = product.quantity ? product.quantity : 0;
+  
+  
   const confirm: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
     message.success(`${product.name} removed in cart`);
-    dispatch(removeFromCart(product.id));
+    dispatch(removeFromCart({ id: product.id as number, color: product.color as string }));
   };
 
   const cancel: PopconfirmProps["onCancel"] = (e) => {
@@ -37,15 +28,21 @@ const CartTable = ({ product }: { product: IProduct }) => {
     message.error(`${product.name} not removed in cart`);
   };
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      dispatch(decrementQuantity(product.id));
-
+  const handleDecrement = (product: IProduct) => {
+    if (product.quantity && product.quantity > 1) {
+      dispatch(decrementQuantity({ id: product.id as number, color: product.color  as string }));
+      console.log(product)
     } else {
-      dispatch(removeFromCart(product.id));
+      dispatch(removeFromCart({ id: product.id as number, color: product.color as string }));
       message.error(`${product.name} removed in cart`);
     }
   };
+
+  const handleIncrement = (product: IProduct) => {
+    dispatch(incrementQuantity({ id: product.id as number, color: product.color as string }));
+    console.log(product)
+  };
+
 
   const total =
     quantity >= 10
@@ -71,17 +68,29 @@ const CartTable = ({ product }: { product: IProduct }) => {
           <span style={{ backgroundColor: product.color }} className={`text-black w-8 mx-auto h-8 rounded-full `}></span>
         </div>
       </td>
-      <td className="font-bold ">${product.price}</td>
-      <td className="font-bold">${total}</td>
+      <td className="font-bold ">
+        {
+          lang === "usd" && `$${product.price}` ||
+          lang === "rub" && `₽${(+(product.price) * 96).toFixed(0)}` ||
+          lang === "uz" && `${(+(product.price) * 12700).toFixed(0)} so'm`
+        }
+      </td>
+      <td className="font-bold">
+        {
+          lang === "usd" && `$${total}` ||
+          lang === "rub" && `₽${(+(total) * 96).toFixed(0)}` ||
+          lang === "uz" && `${(+(total) * 12700).toFixed(0)} so'm`
+        }
+      </td>
       <td className=" text-center ">
         <div className="flex items-center gap-5 justify-center">
           <AiOutlineMinus
-            onClick={handleDecrement}
+            onClick={() => handleDecrement(product)}
             className="text-black text-xl font-bold transition-transform active:scale-90"
           />
           <span className="w-5 text-center">{quantity}</span>
           <AiOutlinePlus
-            onClick={handleIncrement}
+            onClick={() => handleIncrement(product)}
             className="text-black text-xl font-bold transition-transform active:scale-90"
           />
         </div>

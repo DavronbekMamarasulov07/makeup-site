@@ -8,21 +8,29 @@ import { Button, Modal } from "antd";
 import useSearchParamsHook from "../../hooks/UseQueryParams.tsx";
 import BankCardForm from "../../components/bank-card-form/BankCardForm.tsx";
 import { clearCart } from "../../redux/slices/cartSlice.ts";
+import notProduct from "../../images/ProductNotFound.png";
 
 const CartComponent = () => {
   const { setParam, getParam ,removeParam } = useSearchParamsHook();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { lang } = useSelector((state: RootState) => state.lang)
   const { cartProduct }: { cartProduct: IProduct[] } = useSelector(
     (state: RootState) => state.cart
   );
+
+  console.log(cartProduct);
+  
   const [count, setCount] = useState<number>(4);
   const dispatch = useDispatch<AppDispatch>();
+
   
   const total = cartProduct
     .map((product) => product.price * (product.quantity || 0))
     .reduce((a, b) => a + b, 0).toFixed(2);
 
   const Total = +total;
+
+
 
   const step = 1
 
@@ -78,13 +86,15 @@ const CartComponent = () => {
               </thead>
               <tbody className="pt-5 text-center">
                 {cartProduct && cartProduct.length > 0 ? (
-                  cartProduct.slice(0, count * step).map((product) => (
-                    <CartTable key={product.id} product={product} />
+                  cartProduct.slice(0, count * step).map((product, index) => (
+                    <CartTable key={index} product={product} />
                   ))
                 ) : (
                   <tr className="w-full">
-                    <td colSpan={6} className="text-center py-10">
-                      Cart is empty
+                    <td colSpan={7} className="text-center py-10">
+                      <div className="flex items-center justify-center ">
+                        <img width={300} src={notProduct} alt="" />
+                      </div>
                     </td>
                   </tr>
                 )}
@@ -108,7 +118,13 @@ const CartComponent = () => {
               <div className="bg-gray-100 flex flex-col w-full max-w-[400px] p-5 mt-5 gap-2 items-end">
                 <div className=" w-full flex justify-between gap-5 ">
                   <span className="text-2xl">SubTotal: </span>{" "}
-                  <strong className="text-xl">${total}</strong>
+                  <strong className="text-xl">
+                    {
+                  lang === "usd" && `$${total}` ||
+                  lang === "rub" && `₽${(+(total) * 96).toFixed(0)}` ||
+                  lang === "uz" && `${(+(total) * 12700).toFixed(0)} so'm`
+                }
+                  </strong>
                 </div>
                 <div className=" w-full flex justify-between gap-5">
                   <span className="text-2xl">Shipping</span>{" "}
@@ -118,7 +134,13 @@ const CartComponent = () => {
                   <span className="text-2xl text-black font-bold">
                     Total:{" "}
                   </span>{" "}
-                  <strong className="text-xl text-black">${total}</strong>
+                  <strong className="text-xl text-black">
+                    {
+                  lang === "usd" && `$${total}` ||
+                  lang === "rub" && `₽${(+(total) * 96).toFixed(0)}` ||
+                  lang === "uz" && `${(+(total) * 12700).toFixed(0)} so'm`
+                }
+                  </strong>
                 </div>
                 <Button
                   onClick={showModal}
