@@ -17,6 +17,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const {setParam, getParam ,removeParam} = useSearchParamsHook()
   const { likedProducts } = useSelector((state: RootState) => state.like)
+  const { cartProduct } = useSelector((state: RootState) => state.cart)
   const { lang } = useSelector((state: RootState) => state.lang)
   const dispatch = useDispatch<AppDispatch>()
 
@@ -63,8 +64,9 @@ const Header = () => {
         />
       </div>
       <div className="flex items-center justify-between max-w-[1300px] mx-auto pt-10 pb-5 ">
-        <div>
+        <div className='flex items-center w-full'>
           <SearchOutlined style={{ fontSize: 30, fontWeight: 'medium' }} />
+          <input className='outline-none border-none ml-3 w-[300px] ' type="text" placeholder='Search' />
         </div>
         <Link to={'/'} className='flex flex-col items-center w-full '>
           <h2 className="text-5xl uppercase font-bold">
@@ -72,17 +74,17 @@ const Header = () => {
           </h2>
           <span className="font-thin">beauty without limits</span>
         </Link>
-        <div className='flex gap-3 cursor-pointer'>
+        <div className='flex gap-3 cursor-pointer justify-end w-full'>
           <div>
             <Link to={'/liked'}>
               <Badge count={likedProducts?.length} overflowCount={9} >
-                <AiOutlineHeart size={25} className=' text-[#222]' />
+                <AiOutlineHeart size={28} className=' text-[#222] !font-thin' />
               </Badge>
             </Link>
           </div>
           <div>
             <Link to={'/cart'}>
-              <Badge count={5} overflowCount={9} >
+              <Badge count={cartProduct?.length} overflowCount={9} >
                 <img width={25} src={cart} alt="" />
               </Badge>
             </Link>

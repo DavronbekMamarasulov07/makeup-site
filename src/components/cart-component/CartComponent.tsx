@@ -90,7 +90,20 @@ const CartComponent = () => {
                 )}
               </tbody>
             </table>
-            <Button onClick={() => setCount(count + 1)} size="large" type="primary" className="!bg-black !text-white mt-5 mx-auto">Show More</Button>
+            {
+              cartProduct && cartProduct.length > 4 && (
+                <div className="w-full flex justify-end">
+                  <Button
+                    onClick={() => setCount(count + 1)}
+                    size="large"
+                    type="primary"
+                    className="!bg-black !text-white mx-auto"
+                  >
+                    View More
+                  </Button>
+                </div>
+              )
+            }
             {cartProduct && cartProduct.length > 0 ? (
               <div className="bg-gray-100 flex flex-col w-full max-w-[400px] p-5 mt-5 gap-2 items-end">
                 <div className=" w-full flex justify-between gap-5 ">
