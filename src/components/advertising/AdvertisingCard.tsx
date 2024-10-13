@@ -35,7 +35,7 @@ const AdvertisingCard = ({ product, imageError, setImageError }: IProps & {}) =>
         style={storyVisible ? { border: "2px solid gray" } : { border: "2px solid green" }}
         className="object-cover rounded-full w-full h-full p-2"
         onError={() => setImageError(true)}
-        src={imageError ? "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg" : product.image_link}
+        src={imageError ? "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg" : product.api_featured_image}
         alt="product_image"
       />
       

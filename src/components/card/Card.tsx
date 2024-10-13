@@ -9,8 +9,8 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom"
+import { addToCart } from "../../redux/slices/cartSlice"
 // import { useNavigate } from "react-router-dom"
-
 
 AOS.init({
   duration: 500,
@@ -34,6 +34,8 @@ const Card = ({ product, cardType }: { product: IProduct, cardType: string }) =>
     }
 
 
+
+
     // if(token){
     // }
     // else{
@@ -43,6 +45,10 @@ const Card = ({ product, cardType }: { product: IProduct, cardType: string }) =>
   }
 
 
+  const handleAddToCart = (product: IProduct) => {
+    dispatch(addToCart({ ...product, quantity: 1, color: product.product_colors[0].hex_value }));
+    message.success(`${product.name} added to cart`);
+  };
 
   const isProductLiked = (productId: number) => {
     return likedProducts?.some((product) => product.id === productId);
@@ -70,9 +76,11 @@ const Card = ({ product, cardType }: { product: IProduct, cardType: string }) =>
           </span>
 
         </div>
+        <Link to={`/details/${product.id}`}>
         <img className="h-[350px] w-full object-cover " onError={() => setImageError(true)} src={
-          imageError ? "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg" : product.image_link
+          imageError ? "https://lightwidget.com/wp-content/uploads/localhost-file-not-found.jpg" : product.api_featured_image
         } alt="product_image" />
+        </Link>
       </div>
       <div className="p-3 flex flex-col gap-1">
         <h3 className="text-xl font-bold  line-clamp-1">{product.name}</h3>
@@ -96,9 +104,8 @@ const Card = ({ product, cardType }: { product: IProduct, cardType: string }) =>
         </div>
       </div>
       <div className="overflow-hidden card-btn-container ">
-        <Link to={`/details/${product.id}`}>
-          <Button type="primary" className="card-btn !bg-[#222] w-full text-white !h-[40px]">More Details</Button>
-        </Link>
+       
+          <Button onClick={() => handleAddToCart(product)} type="primary" className="card-btn !bg-[#222] w-full text-white !h-[40px]">Add to cart</Button>
       </div>
     </div>
   )

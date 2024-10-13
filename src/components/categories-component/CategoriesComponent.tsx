@@ -8,8 +8,9 @@ import { useState } from "react"
 import { IProduct } from "../../types";
 
 
-const CategoriesComponent = ({ data, isLoading }: { data: IProduct[], isLoading: boolean }) => {
+const CategoriesComponent = ({ data, isLoading, productType }: { data: IProduct[], isLoading: boolean , productType: string}) => {
   const [step, setStep] = useState<number>(4)
+
 
   AOS.init({
     duration: 500,
@@ -21,7 +22,7 @@ const CategoriesComponent = ({ data, isLoading }: { data: IProduct[], isLoading:
       <Container>
         <div >
           <h2 className="animate-bounce text-4xl font-bold text-center py-5">
-            Products by Category
+            Products by Category  <span className="uppercase underline text-[#656565]">{productType}</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
             {

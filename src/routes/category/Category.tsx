@@ -9,13 +9,13 @@ const Categories = () => {
   const {name} = useParams()
   const { data, isLoading } = useGetCategoryByNameQuery({"product_type" : name} as {"product_type" : string})
 
-  const filteredData = (data as unknown as IProduct[])?.filter((product: IProduct) => product.price !== "0.0" && product.description !== "" && product.product_colors.length > 0)
+  const filteredData = (data as unknown as IProduct[])?.filter((product: IProduct) => product.price !== 0.0 && product.description !== "" && product.product_colors.length > 0)
   
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow">
-        <CategoriesComponent data={filteredData as unknown as IProduct[]} isLoading={isLoading} />
+        <CategoriesComponent productType={name as string} data={filteredData as unknown as IProduct[]} isLoading={isLoading} />
       </div>
       <Footer />
     </div>

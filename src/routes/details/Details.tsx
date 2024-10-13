@@ -5,6 +5,7 @@ import Footer from "../../components/footer/Footer"
 import { useGetProductQuery } from "../../redux/api/productsApi"
 import productNotFound from "../../images/ProductNotFound.png"
 import { Loading } from "../../utils"
+import { IProduct } from "../../types"
 
 const Details = () => {
   const { id } = useParams()
@@ -12,7 +13,6 @@ const Details = () => {
 
   
 
-  console.log(data)
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -34,7 +34,7 @@ const Details = () => {
               )
               :
               (
-                <ProductDetails  />
+                <ProductDetails  product={data as unknown as IProduct} />
               )
             )
         }

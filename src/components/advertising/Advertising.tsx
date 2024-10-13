@@ -53,7 +53,7 @@ const Advertising = ({ data, isLoading }: { data: IProduct[], isLoading: boolean
                   </div>
                 ))
               ) : (
-                data?.slice(60, 68).map((product) => (
+                data?.slice(18, 26).map((product) => (
                   <div data-aos="zoom-in" key={product.id}>
                     <AdvertisingCard setImageError={setImageError} product={product} imageError={imageError} />
                   </div>
@@ -69,6 +69,7 @@ const Advertising = ({ data, isLoading }: { data: IProduct[], isLoading: boolean
         footer={null}
         closable={false}
         maskClosable={false}
+        centered
       >
         {
           isLoadingProduct ? (
@@ -85,7 +86,7 @@ const Advertising = ({ data, isLoading }: { data: IProduct[], isLoading: boolean
                   <div className="m">
                   </div>
                 </div >
-                <img className="w-full border-b border-[#222] mb-5" src={productData?.image_link} alt="" />
+                <img className="w-full h-[400px] object-cover border-b border-[#222] mb-5" src={productData?.api_featured_image} alt="" />
                 <div className="text-center flex flex-col gap-4">
                   <h1 className="text-2xl font-bold">{productData?.name}</h1>
                   <Link onClick={() => handleCancel()} to={`/details/${getParam('story')}`}>
