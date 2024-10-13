@@ -1,8 +1,7 @@
-import { SearchOutlined } from '@ant-design/icons'
 import cart from '../../images/cart.svg'
 import login from '../../images/login.svg'
-import { Link } from 'react-router-dom'
-import { Badge, Modal, Select } from 'antd'
+import {  Link, useNavigate } from 'react-router-dom'
+import { AutoComplete, Badge, Form, Modal, Select } from 'antd'
 import { useEffect, useState } from 'react'
 import useSearchParamsHook from '../../hooks/UseQueryParams'
 import SignIn from '../auth/signIn/SignIn'
@@ -11,14 +10,22 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../redux/store'
 import { setLang } from '../../redux/slices/langSlice'
+import { BiSearch } from 'react-icons/bi'
+import { useGetAllProductsQuery } from '../../redux/api/productsApi'
 
 
 const Header = () => {
+  const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const {setParam, getParam ,removeParam} = useSearchParamsHook()
   const { likedProducts } = useSelector((state: RootState) => state.like)
   const { cartProduct } = useSelector((state: RootState) => state.cart)
   const { lang } = useSelector((state: RootState) => state.lang)
+  const [hidden, setHidden] = useState<boolean>(false);
+  const navigate = useNavigate()
+  const { data } = useGetAllProductsQuery()
+
+
   const dispatch = useDispatch<AppDispatch>()
 
   const handleChange = (value: string) => {
@@ -44,9 +51,26 @@ const Header = () => {
     setIsModalOpen(false);
     removeParam('modal')
   };
+
+
+  const handleSearchSubmit = (value: { search: string }) => {
+    navigate(`/search?brand=${value.search}`);
+  };
+
+  const onSelect = (data: string) => {
+    console.log("onSelect", data);
+  };
+
+  const loadData = async (searchText: string) => {
+    try {
+      setSearch(searchText);
+    } catch (error) {
+      console.error("Error loading search data:", error);
+    }
+  };
   return (
     <nav className='shadow-md ' >
-      <div className='absolute top-2 right-5 '>
+      <div className='select-lang absolute top-2 right-5 '>
         <Select
           
           defaultValue={
@@ -64,9 +88,46 @@ const Header = () => {
         />
       </div>
       <div className="flex items-center justify-between max-w-[1300px] mx-auto pt-10 pb-5 ">
-        <div className='flex items-center w-full'>
-          <SearchOutlined style={{ fontSize: 30, fontWeight: 'medium' }} />
-          <input className='outline-none border-none ml-3 w-[300px] ' type="text" placeholder='Search' />
+        <div className="search w-full max-w-[300px]">
+          <Form
+            name="basic"
+            initialValues={{ search: getParam("brand") }}
+            onFinish={handleSearchSubmit}
+            className='w-full flex items-center gap-2'
+          >
+            <BiSearch  className='text-2xl' onClick={() => setHidden(!hidden)}/>
+            <Form.Item
+              name="search"
+              className="w-full  !mb-0"
+              style={{ display: hidden ? "none" : "block" }}
+              rules={[{ required: false }]}
+            >
+               <AutoComplete
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    navigate(`/search?brand=${search}`);
+                  }
+                }}
+                onChange={onSelect}
+                options={data?.map((product) => ({
+                  label: (
+                    <Link
+                      className="block capitalize"
+                      key={product.id}
+                      to={`/details/${product.id}`}
+                    >
+                      {product.brand}
+                    </Link>
+                  ),
+                }))}
+                style={{ width: "100%" }}
+                className="custom-autocomplete w-full "
+                onSelect={onSelect}
+                onSearch={(text) => (text ? loadData(text) : loadData(""))}
+                placeholder="Search..."
+              />
+            </Form.Item>
+          </Form>
         </div>
         <Link to={'/'} className='flex flex-col items-center w-full '>
           <h2 className="text-5xl uppercase font-bold">

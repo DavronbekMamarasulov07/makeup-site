@@ -17,9 +17,16 @@ const productsApi = api.injectEndpoints({
         url: `/products/${id}.json`
       }),
       providesTags: ["MAKEUP"],
-    })
+    }),
+    searchProduct: build.query<IProduct[], { brand: string | null }>({
+      query: (params) => ({
+        url: "/products.json",
+        params
+      }),
+      providesTags: ["MAKEUP"],
+    }),
 
   })
 })
 
-export const  { useGetAllProductsQuery, useGetProductQuery } = productsApi
+export const  { useGetAllProductsQuery, useGetProductQuery , useSearchProductQuery} = productsApi

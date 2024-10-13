@@ -8,6 +8,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
 }
 
 a{
@@ -26,10 +27,19 @@ ul{
 
 
 
-.ant-select-selector{
+.select-lang .ant-select-selector{
   border: 1px solid #d9d9d9 !important;
 }
 
-.ant-select-selector:hover{
+.select-lang .ant-select-selector:hover{
   box-shadow: 0px 0px 5px 2px #222 !important;
+}
+.search .ant-select-selector{
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.search .ant-select-selector {
+  box-shadow: none !important;
+  border: none !important;
 }
