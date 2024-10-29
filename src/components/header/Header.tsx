@@ -87,8 +87,8 @@ const Header = () => {
           ]}
         />
       </div>
-      <div className="flex items-center justify-between max-w-[1300px] mx-auto pt-10 pb-5 ">
-        <div className="search w-full max-w-[300px]">
+      <div className="flex items-center justify-between  max-w-[1300px] mx-auto pt-10 pb-5 gap-10 ">
+        <div className="search w-full max-w-[500px]">
           <Form
             name="basic"
             initialValues={{ search: getParam("brand") }}
@@ -129,7 +129,7 @@ const Header = () => {
             </Form.Item>
           </Form>
         </div>
-        <Link to={'/'} className='flex flex-col items-center w-full '>
+        <Link to={'/'} className='flex flex-col items-center w-full'>
           <h2 className="text-5xl uppercase font-bold">
             makeup
           </h2>
